@@ -1,0 +1,177 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #5c0000;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Centralização do layout completo */
+.view {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Área de Texto */
+.container {
+  max-width: 650px;
+  text-align: center;
+  margin-bottom: 25px;
+  animation: fadeIn 1.2s ease-out;
+}
+
+h1 {
+  color: #fff;
+  font-size: 1.7rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+p {
+  color: #f1f1f1;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+
+.destaque {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffd166;
+  margin-top: 10px;
+}
+
+/* Container do Bolo */
+.cake-container {
+  position: relative;
+  width: 300px;
+  height: 250px;
+}
+
+/* 1. Prato */
+.plate {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 270px;
+  height: 90px;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  box-shadow: 0 10px 0 #bbb, 0 15px 25px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* 2. Base do Bolo */
+.cake-base {
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 210px;
+  height: 110px;
+  background-color: #f7a399;
+  border-radius: 10px 10px 100px 100px / 10px 10px 50px 50px;
+  box-shadow: inset 0 -15px 0 #e56b6f;
+  z-index: 2;
+}
+
+/* 3. Cobertura / Glacê */
+.icing {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 210px;
+  height: 38px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 4px 0 #ffe3e0;
+  z-index: 3;
+}
+
+/* 4. Vela */
+.candle {
+  position: absolute;
+  bottom: 145px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 55px;
+  background: #ffffff;
+  border-radius: 8px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #ff4b5c,
+    #ff4b5c 5px,
+    #ffffff 5px,
+    #ffffff 10px
+  );
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 4;
+}
+
+/* Chama */
+.flame {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 24px;
+  background-color: #ffd166;
+  border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+  box-shadow: 0 0 15px #ff9e00, 0 0 30px #ff9e00, 0 0 45px rgba(255, 158, 0, 0.5);
+  z-index: 5;
+  animation: flicker 1s ease-in-out infinite alternate;
+}
+
+/* Sequência de Animação de Queda */
+.element-1, .element-2, .element-3, .element-4 {
+  opacity: 0;
+  animation-name: drop;
+  animation-duration: 0.8s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+.element-1 { animation-delay: 0.4s; }
+.element-2 { animation-delay: 1.0s; }
+.element-3 { animation-delay: 1.5s; }
+.element-4 { animation-delay: 2.0s; }
+
+/* Animações Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes drop {
+  0% {
+    transform: translate(-50%, -400px);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes flicker {
+  0% { transform: translateX(-50%) scale(1) rotate(-1deg); }
+  100% { transform: translateX(-50%) scale(1.15) rotate(2deg); }
+}

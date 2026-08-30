@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #a00e0e;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.heart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* SVG responsivo */
+.svg-text {
+  width: 95vw;
+  max-width: 900px;
+  height: auto;
+}
+
+/* Linha 1: "Eu te amo minha preta!" */
+.text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 75px;
+  fill: transparent;
+  stroke: #ff4d6d;
+  stroke-width: 2.5px;
+  stroke-dasharray: 1800;
+  stroke-dashoffset: 1800;
+  animation: draw 4s ease-in-out forwards, fillIn 1.2s 3.8s ease-in-out forwards;
+}
+
+/* Linha 2: "saudades de você costelinha..." */
+.subtitle {
+  font-size: 55px;
+  stroke-width: 2px;
+}
+
+/* Coração em CSS puro */
+.heart {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  background-color: #ff4d6d;
+  transform: rotate(-45deg) scale(0);
+  margin-top: 10px;
+  box-shadow: 0 0 30px #ff4d6d;
+  animation: appearHeart 0.6s 4.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+             pulse 1.2s 4.8s infinite ease-in-out;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  background-color: #ff4d6d;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -22.5px;
+  left: 0;
+}
+
+.heart::after {
+  left: 22.5px;
+  top: 0;
+}
+
+/* Animações */
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fillIn {
+  to {
+    fill: #ff4d6d;
+    filter: drop-shadow(0 0 18px rgba(255, 77, 109, 0.8));
+  }
+}
+
+@keyframes appearHeart {
+  to {
+    transform: rotate(-45deg) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: rotate(-45deg) scale(1);
+  }
+  50% {
+    transform: rotate(-45deg) scale(1.18);
+  }
+  100% {
+    transform: rotate(-45deg) scale(1);
+  }
+}
