@@ -5,8 +5,7 @@
 }
 
 body {
-  /* Fundo vermelho da sua captura */
-  background-color: #a00e0e;
+  background-color: #590404;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -14,10 +13,63 @@ body {
   overflow: hidden;
   font-family: 'Poppins', sans-serif;
   padding: 20px;
+  position: relative;
 }
 
-/* Modal da pergunta */
+/* 1. Mosaico fixo no fundo */
+.photo-mosaic {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-auto-rows: 160px;
+  gap: 12px;
+  padding: 10px;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+.photo-item {
+  overflow: hidden;
+  border-radius: 12px;
+  filter: grayscale(25%) brightness(0.42) blur(1px);
+  transform: scale(0.98);
+  transition: all 0.4s ease;
+}
+
+.photo-item:hover {
+  filter: grayscale(0%) brightness(1) blur(0px);
+  transform: scale(1.08);
+  z-index: 2;
+  box-shadow: 0 10px 25px rgba(255, 77, 109, 0.5);
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 2. Película com o tom vermelho que você escolheu */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle, rgba(160, 14, 14, 0.82) 25%, rgba(100, 8, 8, 0.94) 95%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 3. Modal da pergunta */
 .question-container {
+  position: relative;
+  z-index: 3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,13 +78,14 @@ body {
 }
 
 .card {
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 40px 30px;
   border-radius: 20px;
   text-align: center;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
   max-width: 400px;
   width: 100%;
 }
@@ -83,8 +136,10 @@ body {
   transition: all 0.1s ease-out;
 }
 
-/* Área de animação pós-clique */
+/* 4. Animação pós-clique */
 .heart-container {
+  position: relative;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -99,7 +154,6 @@ body {
   height: auto;
 }
 
-/* Linha 1 */
 .text {
   font-family: 'Dancing Script', cursive;
   font-size: 75px;
@@ -112,13 +166,11 @@ body {
   animation: draw 3.5s ease-in-out forwards;
 }
 
-/* Linha 2 */
 .subtitle {
   font-size: 55px;
   stroke-width: 2px;
 }
 
-/* Coração em formato e cor idênticos à imagem enviada */
 .heart {
   position: relative;
   width: 60px;
@@ -150,7 +202,7 @@ body {
   top: 0;
 }
 
-/* Animações */
+/* Keyframes */
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.97); }
   to { opacity: 1; transform: scale(1); }

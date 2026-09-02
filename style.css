@@ -6,17 +6,67 @@
 
 body {
   min-height: 100vh;
-  /* Camada escura com 88% de opacidade por cima da imagem de fundo */
-  background: 
-    linear-gradient(rgba(35, 0, 0, 0.88), rgba(35, 0, 0, 0.88)),
-    url('fundo.jpeg') center/cover no-repeat fixed;
+  background-color: #1a0003;
   font-family: 'Poppins', sans-serif;
   color: #fff;
   overflow-x: hidden;
+  position: relative;
 }
 
-/* Layout centralizado e rolável */
+/* 1. Mosaico fixo no fundo */
+.photo-mosaic {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-auto-rows: 180px;
+  gap: 12px;
+  padding: 12px;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+.photo-item {
+  overflow: hidden;
+  border-radius: 12px;
+  filter: grayscale(40%) brightness(0.4) blur(1px);
+  transform: scale(0.98);
+  transition: all 0.4s ease;
+}
+
+.photo-item:hover {
+  filter: grayscale(0%) brightness(1) blur(0px);
+  transform: scale(1.08);
+  z-index: 2;
+  box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4);
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 2. Película escura sobre o mural */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle, rgba(60, 0, 10, 0.78) 20%, rgba(20, 0, 5, 0.94) 90%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 3. Área de Leitura e Conteúdo */
 .view {
+  position: relative;
+  z-index: 3;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -25,19 +75,18 @@ body {
   padding: 50px 20px 70px 20px;
 }
 
-/* Formatação do Texto / Carta em Glassmorphism */
 .letter {
   max-width: 720px;
   width: 100%;
   text-align: center;
   margin-bottom: 40px;
   padding: 40px 30px;
-  background: rgba(0, 0, 0, 0.45); /* Caixa translúcida */
-  backdrop-filter: blur(8px);       /* Desfoca o fundo atrás da carta */
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  background: rgba(15, 0, 5, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 77, 109, 0.25);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
   animation: fadeIn 1.2s ease-out;
 }
 
@@ -58,7 +107,7 @@ h1 {
 p {
   color: #f1f1f1;
   font-size: 1rem;
-  line-height: 1.8;
+  line-height: 1.85;
   font-weight: 300;
   margin-bottom: 16px;
   text-align: justify;
@@ -70,8 +119,8 @@ p {
   font-weight: 600;
   color: #ffd166;
   text-align: center;
-  margin: 22px 0;
-  text-shadow: 0 0 10px rgba(255, 209, 102, 0.4);
+  margin: 24px 0;
+  text-shadow: 0 0 12px rgba(255, 209, 102, 0.5);
 }
 
 .closing {
@@ -82,7 +131,7 @@ p {
   margin-top: 25px;
 }
 
-/* Container do Bolo */
+/* Bolo */
 .cake-container {
   position: relative;
   width: 300px;
@@ -90,7 +139,6 @@ p {
   margin: 10px 0 30px 0;
 }
 
-/* Elementos do Bolo */
 .plate {
   position: absolute;
   bottom: 10px;
@@ -100,7 +148,7 @@ p {
   height: 90px;
   background-color: #e0e0e0;
   border-radius: 50%;
-  box-shadow: 0 10px 0 #bbb, 0 15px 25px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 0 #bbb, 0 15px 25px rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
 
@@ -146,7 +194,7 @@ p {
     #ffffff 5px,
     #ffffff 10px
   );
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
   z-index: 4;
 }
 
@@ -164,7 +212,7 @@ p {
   animation: flicker 1s ease-in-out infinite alternate;
 }
 
-/* Botão de Navegação */
+/* Botão */
 .button-wrapper {
   margin-top: 20px;
   text-align: center;
@@ -188,7 +236,7 @@ p {
   box-shadow: 0 7px 25px rgba(255, 77, 109, 0.6);
 }
 
-/* Animações Sequenciais do Bolo */
+/* Animações */
 .element-1, .element-2, .element-3, .element-4 {
   opacity: 0;
   animation-name: drop;
@@ -208,17 +256,9 @@ p {
 }
 
 @keyframes drop {
-  0% {
-    transform: translate(-50%, -400px);
-    opacity: 0;
-  }
-  60% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, 0);
-    opacity: 1;
-  }
+  0% { transform: translate(-50%, -400px); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: translate(-50%, 0); opacity: 1; }
 }
 
 @keyframes flicker {
