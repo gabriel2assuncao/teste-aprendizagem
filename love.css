@@ -5,109 +5,165 @@
 }
 
 body {
+  /* Fundo vermelho da sua captura */
   background-color: #a00e0e;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  font-family: 'Poppins', sans-serif;
   padding: 20px;
 }
 
+/* Modal da pergunta */
+.question-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 40px 30px;
+  border-radius: 20px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  max-width: 400px;
+  width: 100%;
+}
+
+.emoji-topo {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.card h2 {
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+}
+
+.btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-yes {
+  background-color: #ff4d6d;
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 77, 109, 0.5);
+  transition: transform 0.2s;
+}
+
+.btn-yes:hover {
+  transform: scale(1.08);
+}
+
+.btn-no {
+  background-color: #333;
+  color: white;
+  transition: all 0.1s ease-out;
+}
+
+/* Área de animação pós-clique */
 .heart-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
-/* SVG responsivo */
 .svg-text {
   width: 95vw;
   max-width: 900px;
   height: auto;
 }
 
-/* Linha 1: "Eu te amo minha preta!" */
+/* Linha 1 */
 .text {
   font-family: 'Dancing Script', cursive;
   font-size: 75px;
-  fill: transparent;
+  fill: #ff4d6d;
   stroke: #ff4d6d;
   stroke-width: 2.5px;
   stroke-dasharray: 1800;
   stroke-dashoffset: 1800;
-  animation: draw 4s ease-in-out forwards, fillIn 1.2s 3.8s ease-in-out forwards;
+  filter: drop-shadow(0 0 14px rgba(255, 77, 109, 0.8));
+  animation: draw 3.5s ease-in-out forwards;
 }
 
-/* Linha 2: "saudades de você costelinha..." */
+/* Linha 2 */
 .subtitle {
   font-size: 55px;
   stroke-width: 2px;
 }
 
-/* Coração em CSS puro */
+/* Coração em formato e cor idênticos à imagem enviada */
 .heart {
   position: relative;
-  width: 45px;
-  height: 45px;
+  width: 60px;
+  height: 60px;
   background-color: #ff4d6d;
-  transform: rotate(-45deg) scale(0);
-  margin-top: 10px;
-  box-shadow: 0 0 30px #ff4d6d;
-  animation: appearHeart 0.6s 4.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
-             pulse 1.2s 4.8s infinite ease-in-out;
+  transform: rotate(-45deg);
+  margin-top: 40px;
+  box-shadow: 0 0 40px rgba(255, 77, 109, 0.8);
+  animation: pulse 1.2s infinite ease-in-out;
 }
 
 .heart::before,
 .heart::after {
   content: "";
   position: absolute;
-  width: 45px;
-  height: 45px;
+  width: 60px;
+  height: 60px;
   background-color: #ff4d6d;
   border-radius: 50%;
 }
 
 .heart::before {
-  top: -22.5px;
+  top: -30px;
   left: 0;
 }
 
 .heart::after {
-  left: 22.5px;
+  left: 30px;
   top: 0;
 }
 
 /* Animações */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 @keyframes draw {
   to {
     stroke-dashoffset: 0;
   }
 }
 
-@keyframes fillIn {
-  to {
-    fill: #ff4d6d;
-    filter: drop-shadow(0 0 18px rgba(255, 77, 109, 0.8));
-  }
-}
-
-@keyframes appearHeart {
-  to {
-    transform: rotate(-45deg) scale(1);
-  }
-}
-
 @keyframes pulse {
-  0% {
-    transform: rotate(-45deg) scale(1);
-  }
-  50% {
-    transform: rotate(-45deg) scale(1.18);
-  }
-  100% {
-    transform: rotate(-45deg) scale(1);
-  }
+  0% { transform: rotate(-45deg) scale(1); }
+  50% { transform: rotate(-45deg) scale(1.15); }
+  100% { transform: rotate(-45deg) scale(1); }
 }

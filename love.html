@@ -7,25 +7,68 @@
   <link rel="stylesheet" href="love.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <div class="heart-container">
+  <!-- Tela da pergunta com botão que foge -->
+  <div class="question-container" id="questionContainer">
+    <div class="card">
+      <span class="emoji-topo">🥺👉👈</span>
+      <h2>Você me ama, Costelinha?</h2>
+      <div class="btn-group">
+        <button id="yesBtn" class="btn btn-yes">Sim! ❤️</button>
+        <button id="noBtn" class="btn btn-no">Não 😢</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tela idêntica à sua captura (aparece ao clicar em 'Sim!') -->
+  <div class="heart-container" id="heartContainer" style="display: none;">
     <svg viewBox="0 0 1000 350" class="svg-text">
-      <!-- Linha 1 -->
       <text x="50%" y="38%" text-anchor="middle" dominant-baseline="middle" class="text">
         Eu te amo minha preta!
       </text>
-      <!-- Linha 2 -->
-      <text x="50%" y="68%" text-anchor="middle" dominant-baseline="middle" class="text subtitle">
+      <text x="50%" y="70%" text-anchor="middle" dominant-baseline="middle" class="text subtitle">
         saudades de você costelinha...
       </text>
     </svg>
 
-    <!-- Coração pulsando -->
+    <!-- Coração central exato da captura -->
     <div class="heart"></div>
   </div>
 
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const questionContainer = document.getElementById("questionContainer");
+    const heartContainer = document.getElementById("heartContainer");
+
+    function moveButton() {
+      const maxX = window.innerWidth - noBtn.offsetWidth - 40;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 40;
+
+      const newX = Math.max(20, Math.floor(Math.random() * maxX));
+      const newY = Math.max(20, Math.floor(Math.random() * maxY));
+
+      noBtn.style.position = "fixed";
+      noBtn.style.left = `${newX}px`;
+      noBtn.style.top = `${newY}px`;
+    }
+
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveButton();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      questionContainer.style.opacity = "0";
+      setTimeout(() => {
+        questionContainer.style.display = "none";
+        heartContainer.style.display = "flex";
+      }, 300);
+    });
+  </script>
 </body>
 </html>
