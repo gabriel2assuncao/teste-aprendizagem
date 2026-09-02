@@ -6,7 +6,10 @@
 
 body {
   min-height: 100vh;
-  background-color: #5c0000;
+  /* Camada escura com 88% de opacidade por cima da imagem de fundo */
+  background: 
+    linear-gradient(rgba(35, 0, 0, 0.88), rgba(35, 0, 0, 0.88)),
+    url('fundo.jpeg') center/cover no-repeat fixed;
   font-family: 'Poppins', sans-serif;
   color: #fff;
   overflow-x: hidden;
@@ -22,12 +25,19 @@ body {
   padding: 50px 20px 70px 20px;
 }
 
-/* Formatação do Texto / Carta */
+/* Formatação do Texto / Carta em Glassmorphism */
 .letter {
   max-width: 720px;
   width: 100%;
   text-align: center;
   margin-bottom: 40px;
+  padding: 40px 30px;
+  background: rgba(0, 0, 0, 0.45); /* Caixa translúcida */
+  backdrop-filter: blur(8px);       /* Desfoca o fundo atrás da carta */
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
   animation: fadeIn 1.2s ease-out;
 }
 
@@ -35,7 +45,7 @@ h1 {
   font-size: 2rem;
   margin-bottom: 25px;
   font-weight: 600;
-  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
 }
 
 .greeting {
